@@ -1,0 +1,23 @@
+@echo off
+echo === SETUP STRATUM 2 (CLIENT to SERVER) ===
+:: GANTI IP DI BAWAH INI DENGAN IP TAILSCALE UBUNTU VM (NODE 1)
+set SERVER_IP=100.10.0.1
+
+echo Memaksa startup service menjadi otomatis...
+sc config w32time start= auto
+
+echo Mengaktifkan Windows Time Service...
+net start w32time
+
+echo Mengatur target NTP Server ke %SERVER_IP%...
+w32tm /config /manualpeerlist:%SERVER_IP%,0x8 /syncfromflags:manual /reliable:YES /update
+
+echo Mengizinkan Windows ini menjadi Server untuk Stratum 3...
+reg add HKLM\SYSTEM\CurrentControlSet\Services\W32Time\Config /v AnnounceFlags /t REG_DWORD /d 5 /f
+
+echo Merestart ulang Windows Time Service...
+net stop w32time && net start w32time
+
+echo Melakukan sinkronisasi waktu sekarang...
+w32tm /resync
+pause
