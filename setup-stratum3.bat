@@ -11,4 +11,4 @@ net stop w32time && net start w32time
 
 echo Melakukan sinkronisasi waktu sekarang...
 w32tm /resync
-pauses
+pause
