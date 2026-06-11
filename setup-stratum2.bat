@@ -1,7 +1,7 @@
 @echo off
 echo === SETUP STRATUM 2 (CLIENT to SERVER) ===
 :: GANTI IP DI BAWAH INI DENGAN IP TAILSCALE UBUNTU VM (NODE 1)
-set SERVER_IP=100.10.0.1
+set SERVER_IP=100.113.40.98
 
 echo Memaksa startup service menjadi otomatis...
 sc config w32time start= auto
